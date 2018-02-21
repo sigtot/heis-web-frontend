@@ -12,15 +12,13 @@ var updateView = function() {
 
 function updateDOM(currentFloor, lastFloor, doorOpen) {
   $(".last-floor-number h6").text(lastFloor + 1);
-  if(doorOpen) {
-    $(".doors").each(function(i){
-      if(i === 3 - currentFloor) {
-        $(this).addClass("open");
-      } else {
-        $(this).removeClass("open");
-      }
-    });
-  }
+  $(".doors").each(function(i){
+    if(i === 3 - currentFloor && doorOpen) {
+      $(this).addClass("open");
+    } else {
+      $(this).removeClass("open");
+    }
+  });
 }
 
 window.setInterval(updateView, 100);
