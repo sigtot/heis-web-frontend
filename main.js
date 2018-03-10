@@ -8,7 +8,7 @@ var updateView = function() {
     data: {"orders": orderArray}
   }).done(function(result) {
     var modelData = JSON.parse(result);
-    updateDOM(parseInt(modelData["current_floor"]), parseInt(modelData["last_floor"]), parseInt(modelData["door_open"]));
+    updateDOM(parseInt(modelData["current_floor"]), parseInt(modelData["last_floor"]), parseInt(modelData["door_open"]), parseInt(modelData["moving"]));
   });
 };
 
@@ -27,7 +27,7 @@ $(".doors").click(function(i){
   }, 1000);
 });
 
-function updateDOM(currentFloor, lastFloor, doorOpen) {
+function updateDOM(currentFloor, lastFloor, doorOpen, moving) {
   $(".last-floor-number h6").text(lastFloor + 1);
   $(".doors").each(function(i){
     if(i === 3 - currentFloor && doorOpen) {
@@ -36,6 +36,13 @@ function updateDOM(currentFloor, lastFloor, doorOpen) {
       $(this).removeClass("open");
     }
   });
+  var musicElement = document.getElementById("music-element");
+  if(moving === 1) {
+    musicElement.play();
+  } else {
+    musicElement.pause();
+    musicElement.currentTime = 0;
+  }
 }
 
 window.setInterval(updateView, 100);
